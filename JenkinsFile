@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JAVA_HOME'      // remplace par le nom exact configuré dans Jenkins si besoin
-        maven 'MAVEN_HOME'   // remplace par le nom exact configuré dans Jenkins si besoin
+        jdk 'JAVA_HOME'
+        maven 'MAVEN_HOME'
     }
 
     options {
@@ -29,13 +29,19 @@ pipeline {
                 bat 'mvn clean test'
             }
         }
+
+        stage('Debug Reports') {
+            steps {
+                bat 'if exist target (dir target /s) else echo target folder not found'
+            }
+        }
     }
 
     post {
         always {
             junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
 
-            archiveArtifacts artifacts: 'target/cucumber-html-reports/**, target/surefire-reports/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'target/**', allowEmptyArchive: true
 
             publishHTML(target: [
                 reportDir: 'target/cucumber-html-reports',
@@ -48,11 +54,11 @@ pipeline {
         }
 
         success {
-            echo 'Pipeline exécutée avec succès. Rapport HTML Cucumber publié.'
+            echo 'Pipeline exécutée avec succès.'
         }
 
         failure {
-            echo 'Pipeline en échec. Vérifie les logs Maven, les résultats JUnit et le rapport HTML.'
+            echo 'Pipeline en échec.'
         }
     }
 }
