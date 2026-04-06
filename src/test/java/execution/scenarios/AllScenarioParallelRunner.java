@@ -25,7 +25,7 @@ class AllScenarioParallelRunner {
         Results results = Runner.path("classpath:features")
                 .outputCucumberJson(true)
                 .outputJunitXml(true)
-                .tags("@Test1 , @Test").parallel(5);
+                .tags("@Test1" , "@Test").parallel(5);
         generateReport(results.getReportDir());
         System.out.println("Karate reports are in: " + results.getReportDir());
 
