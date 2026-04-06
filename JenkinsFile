@@ -44,9 +44,9 @@ pipeline {
             archiveArtifacts artifacts: 'target/**', allowEmptyArchive: true
 
             publishHTML(target: [
-                reportDir: 'target/cucumber-html-reports',
-                reportFiles: 'overview-features.html',
-                reportName: 'Cucumber HTML Report',
+                reportDir: 'target/karate-reports',
+                reportFiles: 'karate-summary.html',
+                reportName: 'Karate HTML Report',
                 keepAll: true,
                 alwaysLinkToLastBuild: true,
                 allowMissing: true
@@ -54,7 +54,7 @@ pipeline {
         }
 
         success {
-            echo 'Pipeline exécutée avec succès.'
+            echo 'Pipeline exécutée avec succès. Rapport Karate publié.'
         }
 
         failure {
