@@ -31,19 +31,18 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            junit allowEmptyResults: true, testResults: 'target/karate-reports/*.json'
-            cucumber 'target/cucumber-html-reports/js/*.json'
-            archiveArtifacts artifacts: 'target/karate-reports/**, target/karate-reports/**', allowEmptyArchive: true
-        }
+   post {
+       always {
+           junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+           archiveArtifacts artifacts: 'target/cucumber-html-reports/**, target/surefire-reports/**', allowEmptyArchive: true
 
-        success {
-            echo 'Build terminé avec succès. Rapports JUnit, Cucumber et Karate disponibles.'
-        }
-
-        failure {
-            echo 'Build en échec. Vérifie les logs, les rapports JUnit et les rapports Karate.'
-        }
-    }
-}
+           publishHTML(target: [
+               reportDir: 'target/cucumber-html-reports',
+               reportFiles: 'overview-features.html',
+               reportName: 'Cucumber HTML Report',
+               keepAll: true,
+               alwaysLinkToLastBuild: true,
+               allowMissing: true
+           ])
+       }
+   }
