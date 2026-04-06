@@ -1,0 +1,23 @@
+
+{
+"name": "#(name)",
+"username": "ichraf88",
+"email": "#(email)",
+  "address": {
+    "street": "rue de la france",
+    "suite": "Apt. 6",
+    "city": "Quebec",
+    "zipcode": "G1V 4E9",
+    "geo": {
+      "lat": "-37.3179",
+      "lng": "81.1400"
+    }
+  },
+  "phone": "1-770-736-8031 x56489",
+  "website": "hildegard.ca",
+  "company": {
+    "name": "Romaguera",
+    "catchPhrase": "Multi-layered client-server",
+    "bs": "harness"
+  }
+}
