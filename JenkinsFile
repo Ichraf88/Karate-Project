@@ -33,9 +33,9 @@ pipeline {
 
     post {
         always {
-            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-            cucumber 'target/karate-reports/*.json'
-            archiveArtifacts artifacts: 'target/karate-reports/**, target/surefire-reports/**', allowEmptyArchive: true
+            junit allowEmptyResults: true, testResults: 'target/karate-reports/*.json'
+            cucumber 'target/cucumber-html-reports/js/*.json'
+            archiveArtifacts artifacts: 'target/karate-reports/**, target/karate-reports/**', allowEmptyArchive: true
         }
 
         success {
