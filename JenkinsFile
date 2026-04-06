@@ -30,7 +30,7 @@ pipeline {
             }
         }
 
-        stage('Debug Reports') {
+        stage('Debug Report Path') {
             steps {
                 bat 'if exist target (dir target /s) else echo target folder not found'
             }
