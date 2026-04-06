@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     tools {
-          jdk   'JAVA_HOME'     // ex: 'JDK21' dans mon cas JDK21.0.10
-          maven 'MAVEN_HOME'    // ex: 'Maven3'
+            jdk   'JAVA_HOME'     // ex: 'JDK21' dans mon cas JDK21.0.10
+            maven 'MAVEN_HOME'    // ex: 'Maven3'
     }
 
     options {
@@ -34,7 +34,16 @@ pipeline {
     post {
         always {
             junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+            cucumber 'target/karate-reports/*.json'
             archiveArtifacts artifacts: 'target/karate-reports/**, target/surefire-reports/**', allowEmptyArchive: true
+        }
+
+        success {
+            echo 'Build terminé avec succès. Rapports JUnit, Cucumber et Karate disponibles.'
+        }
+
+        failure {
+            echo 'Build en échec. Vérifie les logs, les rapports JUnit et les rapports Karate.'
         }
     }
 }
