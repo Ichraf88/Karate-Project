@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    tools {
+            jdk   'JAVA_HOME'     // ex: 'JDK21' dans mon cas JDK21.0.10
+            maven 'MAVEN_HOME'    // ex: 'Maven3'
+    }
+
+    options {
+        timestamps()
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Verify Java & Maven') {
+            steps {
+                sh 'java -version'
+                sh 'mvn -version'
+            }
+        }
+
+        stage('Run Karate Tests') {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
+    }
+
+    post {
+        always {
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
+            archiveArtifacts artifacts: 'target/karate-reports/**, target/surefire-reports/**', allowEmptyArchive: true
+        }
+    }
+}
