@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AllScenarioParallelRunner {
+class AllScenarioParallelRunnerTest {
 
     private static final DecimalFormat df = new DecimalFormat("0.000");
 
